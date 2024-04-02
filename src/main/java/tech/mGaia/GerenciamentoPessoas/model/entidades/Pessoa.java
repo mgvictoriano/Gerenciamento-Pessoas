@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pessoa")
@@ -34,7 +36,14 @@ public class Pessoa  implements Serializable {
     @Column(name = "INSCRICAO_FEDERAL", length = 20)
     private String inscricaoFederal;
 
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    private List<Endereco> enderecos = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "ENDERECO_PRINCIPAL_ID")
+    private Endereco enderecoPrincipal;
 }
+
 
 
 
