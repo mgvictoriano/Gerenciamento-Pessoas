@@ -1,28 +1,28 @@
 package tech.mGaia.GerenciamentoPessoas.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.mGaia.GerenciamentoPessoas.exceptions.EnderecoException;
 import tech.mGaia.GerenciamentoPessoas.model.dtos.EnderecoDTO;
 import tech.mGaia.GerenciamentoPessoas.model.entidades.Endereco;
+import tech.mGaia.GerenciamentoPessoas.model.entidades.Pessoa;
 import tech.mGaia.GerenciamentoPessoas.provider.EnderecoDTOProvider;
 import tech.mGaia.GerenciamentoPessoas.provider.EnderecoProvider;
 import tech.mGaia.GerenciamentoPessoas.repository.EnderecoRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @Tag("TESTE_UNITARIO")
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +38,7 @@ public class EnderecoServiceTest {
     @Test
     public void testInserirEndereco() {
         Endereco endereco = enderecoProvider.criar().retornar();
-        Mockito.when(enderecoRepository
+        when(enderecoRepository
                         .save(Mockito.any(Endereco.class)))
                 .thenReturn(new Endereco());
 
@@ -68,7 +68,7 @@ public class EnderecoServiceTest {
 
     @Test
     void testAtualizarEnderecoEnderecoNaoEncontrado() {
-        Mockito.when(enderecoRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(enderecoRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(EnderecoException.EnderecoNaoEncontradoException.class,
                 () -> enderecoService.atualizarEndereco(1L, new EnderecoDTO()));
@@ -77,7 +77,7 @@ public class EnderecoServiceTest {
     @Test
     void testBuscarEnderecoPorId() {
         Endereco endereco = enderecoProvider.criar().retornar();
-        Mockito.when(enderecoRepository.findById(ArgumentMatchers.anyLong()))
+        when(enderecoRepository.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.of(endereco));
         EnderecoDTO enderecoRetornado = enderecoService.buscarEnderecoPorId(1L);
 
@@ -87,7 +87,7 @@ public class EnderecoServiceTest {
 
     @Test
     void testBuscarEnderecoPorIdNaoEncontrado() {
-        Mockito.when(enderecoRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(enderecoRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(EnderecoException.EnderecoNaoEncontradoException.class,
                 () -> enderecoService.buscarEnderecoPorId(1L));
@@ -110,7 +110,7 @@ public class EnderecoServiceTest {
 
     @Test
     void testBuscarEnderecoPorCepNaoEncontrado() {
-        Mockito.when(enderecoRepository.findByCep(anyString())).thenReturn(Optional.empty());
+        when(enderecoRepository.findByCep(anyString())).thenReturn(Optional.empty());
 
         assertThrows(EnderecoException.EnderecoNaoEncontradoException.class,
                 () -> enderecoService.buscarEnderecoPorCep("12345678"));
@@ -119,7 +119,7 @@ public class EnderecoServiceTest {
     @Test
     void testRemoverEnderecoPorId() {
         Endereco endereco = enderecoProvider.criar().retornar();
-        Mockito.when(enderecoRepository.findById(anyLong())).thenReturn(Optional.of(endereco));
+        when(enderecoRepository.findById(anyLong())).thenReturn(Optional.of(endereco));
 
         enderecoService.removerEnderecoPorId(1L);
 
@@ -129,7 +129,7 @@ public class EnderecoServiceTest {
 
     @Test
     void testRemoverEnderecoPorIdNaoEncontrado() {
-        Mockito.when(enderecoRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(enderecoRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(EnderecoException.EnderecoNaoEncontradoException.class,
                 () -> enderecoService.removerEnderecoPorId(1L));

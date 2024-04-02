@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.mGaia.GerenciamentoPessoas.exceptions.PessoaException;
 import tech.mGaia.GerenciamentoPessoas.model.dtos.PessoaDTO;
+import tech.mGaia.GerenciamentoPessoas.model.entidades.Endereco;
 import tech.mGaia.GerenciamentoPessoas.model.entidades.Pessoa;
 import tech.mGaia.GerenciamentoPessoas.provider.PessoaDTOProvider;
 import tech.mGaia.GerenciamentoPessoas.provider.PessoaProvider;
@@ -117,6 +118,20 @@ public class PessoaServiceTest {
                 .thenReturn(Optional.of(new Pessoa()));
 
         pessoaService.removerPorId(1L);
+    }
+
+    @Test
+    void testDefinirEnderecoPrincipal() {
+        Pessoa pessoaMock = new Pessoa();
+        pessoaMock.setId(1L);
+        Endereco enderecoPrincipalMock = new Endereco();
+        enderecoPrincipalMock.setId(2L);
+
+        pessoaMock.setEnderecos(List.of(enderecoPrincipalMock));
+        when(pessoaRepository.findById(1L)).thenReturn(Optional.of(pessoaMock));
+
+        pessoaService.definirEnderecoPrincipal(1L, 2L);
+        verify(pessoaRepository, times(1)).save(pessoaMock);
     }
 
     @Test
