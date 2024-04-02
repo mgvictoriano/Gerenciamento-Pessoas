@@ -24,14 +24,17 @@ public class Endereco implements Serializable {
     @Column(name = "LOGRADOURO", length = 100, nullable = false)
     private String logradouro;
 
-    @Column(name = "NUMERO", length = 15)
-    private String numero;
+    @Column(name = "NUMERO", length = 4)
+    private int numero;
 
     @Column(name = "BAIRRO", length = 100)
     private String bairro;
 
-    @Column(name = "CIDADE", length = 150)
+    @Column(name = "CIDADE", length = 50)
     private String cidade;
+
+    @Column(name = "ESTADO ", length = 30)
+    private String estado;
 
     @Column(name = "CEP", length = 10)
     private String cep;
