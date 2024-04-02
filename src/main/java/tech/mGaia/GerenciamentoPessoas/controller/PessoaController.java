@@ -55,6 +55,14 @@ public class PessoaController {
         }
     }
 
+    @PutMapping("/{idPessoa}/enderecoPrincipal/{idEnderecoPrincipal}")
+    public ResponseEntity<Void> definirEnderecoPrincipal(
+            @PathVariable Long idPessoa,
+            @PathVariable Long idEnderecoPrincipal) {
+        pessoaService.definirEnderecoPrincipal(idPessoa, idEnderecoPrincipal);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerPorId(@PathVariable Long id) {
         try {
