@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: Gerenciamento-Pessoas
+  datasource:
+    url: jdbc:h2:mem:pessoas
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8033
