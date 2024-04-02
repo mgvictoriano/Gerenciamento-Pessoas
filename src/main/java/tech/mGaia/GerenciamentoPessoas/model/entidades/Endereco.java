@@ -39,4 +39,7 @@ public class Endereco implements Serializable {
     @Column(name = "CEP", length = 10)
     private String cep;
 
+    @ManyToOne
+    @JoinColumn(name = "PESSOA_ID", nullable = false)
+    private Pessoa pessoa;
 }
