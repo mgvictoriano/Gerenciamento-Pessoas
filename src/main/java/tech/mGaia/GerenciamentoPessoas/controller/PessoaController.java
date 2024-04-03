@@ -1,6 +1,11 @@
 package tech.mGaia.GerenciamentoPessoas.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.mGaia.GerenciamentoPessoas.exceptions.PessoaException;
@@ -18,6 +23,15 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @PostMapping
+    @Operation(
+            summary = "Criar Pessoa",
+            description = "Este endpoint permite criar uma nova pessoa."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pessoa criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+    })
     public ResponseEntity<?> criarPessoa(@RequestBody Pessoa pessoa) {
         try {
             pessoaService.criarPessoa(pessoa);
@@ -28,11 +42,29 @@ public class PessoaController {
     }
 
     @GetMapping
-    public List<Pessoa> buscarTodos() {
-        return pessoaService.buscarTodos();
+    @Operation(
+            summary = "Buscar todas as Pessoas",
+            description = "Este endpoint permite buscar todas as pessoas cadastradas."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pessoas encontradas com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+    })
+    public ResponseEntity<List<Pessoa>> buscarTodos() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(pessoaService.buscarTodos());
     }
 
     @GetMapping("/{id}")
+    @Operation(
+            summary = "Buscar Pessoa por ID",
+            description = "Este endpoint permite buscar uma pessoa cadastrada pelo seu ID."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pessoa encontrada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Pessoa não encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+    })
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         try {
             PessoaDTO pessoaDTO = pessoaService.buscarPorId(id);
@@ -43,6 +75,16 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Atualizar Pessoa",
+            description = "Este endpoint permite atualizar os dados de uma pessoa existente pelo seu ID."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pessoa atualizada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Pessoa não encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+    })
     public ResponseEntity<?> atualizarPessoa(@PathVariable Long id,
                                              @RequestBody PessoaDTO pessoaDTO) {
         try {
@@ -56,6 +98,15 @@ public class PessoaController {
     }
 
     @PutMapping("/{idPessoa}/enderecoPrincipal/{idEnderecoPrincipal}")
+    @Operation(
+            summary = "Definir Endereço Principal",
+            description = "Este endpoint permite definir o endereço principal de uma pessoa pelo ID da pessoa e ID do endereço."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Endereço principal definido com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Pessoa ou endereço não encontrado", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+    })
     public ResponseEntity<Void> definirEnderecoPrincipal(
             @PathVariable Long idPessoa,
             @PathVariable Long idEnderecoPrincipal) {
@@ -64,6 +115,15 @@ public class PessoaController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Remover Pessoa por ID",
+            description = "Este endpoint permite remover uma pessoa existente pelo seu ID."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "Pessoa removida com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Pessoa não encontrada", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor", content = @Content)
+    })
     public ResponseEntity<?> removerPorId(@PathVariable Long id) {
         try {
             pessoaService.removerPorId(id);
