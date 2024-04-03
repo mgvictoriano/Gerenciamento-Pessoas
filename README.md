@@ -43,13 +43,14 @@ Para mais detalhes sobre os endpoints disponíveis, consulte a documentação da
 
 ## Documentação da API
 
-A documentação da API pode ser acessada através do Swagger UI. Após iniciar a aplicação, visite `http://localhost:8080/swagger-ui.html` para visualizar e interagir com os endpoints disponíveis.
+A documentação da API pode ser acessada através do Swagger UI. Após iniciar a aplicação, visite `http://localhost:8033/swagger-ui.html` para visualizar e interagir com os endpoints disponíveis.
 
 ## Testes Realizados
 ![image](https://github.com/mgvictoriano/Gerenciamento-Pessoas/assets/108932728/bb8499fd-8e47-4c15-88a8-6165077c1028)
 ![image](https://github.com/mgvictoriano/Gerenciamento-Pessoas/assets/108932728/2441a71d-d89c-4dc1-9112-67c08aec4d71)
 ![image](https://github.com/mgvictoriano/Gerenciamento-Pessoas/assets/108932728/bcddc8d5-d992-4e23-adfd-419ad7d3cdde)
-![image](https://github.com/mgvictoriano/Gerenciamento-Pessoas/assets/108932728/10137287-43ee-468e-bd6c-3c7187451a09)
+![image](https://github.com/mgvictoriano/Gerenciamento-Pessoas/assets/108932728/3d875094-e592-42be-996e-b9e9ff7625ac)
+
 
 
 
