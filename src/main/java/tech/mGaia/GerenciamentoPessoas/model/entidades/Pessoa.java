@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pessoa  implements Serializable {
+public class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Pessoa  implements Serializable {
     @Column(name = "NOME", nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "DATA_NASCIMENTO", length = 10, columnDefinition = "DATE")
+    @Column(name = "DATA_NASCIMENTO", columnDefinition = "DATE")
     private LocalDate dataNascimento;
 
     @Column(name = "EMAIL", length = 100)
@@ -36,13 +36,14 @@ public class Pessoa  implements Serializable {
     @Column(name = "INSCRICAO_FEDERAL", length = 20)
     private String inscricaoFederal;
 
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idPessoa", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "ENDERECO_PRINCIPAL_ID")
-    private Endereco enderecoPrincipal;
+    @Column(name = "ENDERECO_PRINCIPAL_ID")
+    private Long idEnderecoPrincipal;
+
 }
+
 
 
 

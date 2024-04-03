@@ -58,7 +58,7 @@ public class PessoaService {
                 .findFirst()
                 .orElseThrow(() -> new EnderecoException.EnderecoNaoEncontradoException(idEnderecoPrincipal));
 
-        pessoa.setEnderecoPrincipal(enderecoPrincipal);
+        pessoa.setIdEnderecoPrincipal(idEnderecoPrincipal);
         pessoaRepository.save(pessoa);
     }
 
